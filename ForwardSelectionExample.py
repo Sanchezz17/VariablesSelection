@@ -10,9 +10,13 @@ from ForwardSelection import ForwardSelection
 
 boston = load_boston()
 
+print(boston.keys())
+
 df = pd.DataFrame(boston.data, columns=boston.feature_names)
 
-df['PRICE'] = pd.Series(boston.target)
+print(boston.DESCR)
+
+df['PRICE'] = boston.target
 
 # Выбираем первые 13 столбцов в качестве переменных
 X = df.iloc[:, :13]
@@ -27,12 +31,12 @@ print(X.columns.values)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=9)
 
-lin_reg_mod = LinearRegression()
-lin_reg_mod.fit(X_train, y_train)
-y_pred = lin_reg_mod.predict(X_test)
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+y_pred = lin_reg.predict(X_test)
 
-test_set_rmse = (np.sqrt(mean_squared_error(y_test, y_pred)))
-print(test_set_rmse)
+rmse = (np.sqrt(mean_squared_error(y_test, y_pred)))
+print(rmse)
 
-test_set_r2 = r2_score(y_test, y_pred)
-print(test_set_r2)
+r2 = r2_score(y_test, y_pred)
+print(r2)

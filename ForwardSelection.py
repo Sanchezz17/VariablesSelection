@@ -36,7 +36,8 @@ class ForwardSelection:
         current_feature_name = None
         for feature_name in X_remains:
             feature = X_remains[feature_name]
-            # Расчет значения f_real на выборке X_new, включающей переменную feature
+            # Расчет значения f_real на выборке X_new, включающей
+			# переменную feature
             X_new = X_current.copy()
             X_new[feature_name] = feature
             y_pred_full = self._predict(X_new, y)
