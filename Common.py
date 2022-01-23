@@ -52,10 +52,9 @@ def calculate_f_table(alpha: float, n: int, k: int):
 # Возвращает имя переменной, которая имеет наибольшую корреляцию с y
 # X - выборка
 # y - истинное значение результирующей переменной
-def max_corr_feature(X: pd.DataFrame, y: pd.Series):
+def find_max_corr_feature(X: pd.DataFrame, y: pd.Series):
     corrs = X.apply(lambda feature: feature.corr(y))
     max_corr_feature_name = corrs.nlargest(1).index[0]
-    print(max_corr_feature_name)
     return max_corr_feature_name
 
 

@@ -23,7 +23,7 @@ y = df['PRICE']
 # Выбор значимых переменных, alpha - риск принятия неправильного решения
 selection = ForwardSelection(LinearRegression())
 X = selection.select(X, y, alpha=0.1)
-print(X)
+print(X.columns.values)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=9)
 

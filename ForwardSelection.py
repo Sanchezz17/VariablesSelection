@@ -1,6 +1,6 @@
 import math
 import pandas as pd
-from Common import calculate_f_table, calculate_f_real, max_corr_feature
+from Common import calculate_f_table, calculate_f_real, find_max_corr_feature
 
 
 class ForwardSelection:
@@ -66,7 +66,7 @@ class ForwardSelection:
         y_pred_initial = None
 
         # выбор переменной, которая имеет наибольшую корреляцию с y
-        current_feature_name = max_corr_feature(X, y)
+        current_feature_name = find_max_corr_feature(X, y)
         X_current = pd.DataFrame()
 
         for _ in range(n):
