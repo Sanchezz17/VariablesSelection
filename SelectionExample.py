@@ -42,7 +42,6 @@ def regression_test(X: pd.DataFrame, y: pd.Series):
     r2 = r2_score(y_test, y_pred)
     print(r2)
 
-
 print("\nForward Selection test\n")
 selection = ForwardSelection(LinearRegression())
 X_selected = selection.select(X, y, alpha=0.1)
@@ -50,8 +49,5 @@ regression_test(X_selected, y)
 
 print("\nBackward Elimination test\n")
 selection = BackwardElimination(LinearRegression())
-X_selected = selection.select(X, y, alpha=0.1)
-regression_test(X, y)
-
-
-
+X_selected = selection.select(X, y, alpha=0.01)
+regression_test(X_selected, y)
