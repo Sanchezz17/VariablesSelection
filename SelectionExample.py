@@ -25,19 +25,33 @@ X = df.iloc[:, :13]
 # Выбираем колонку Price как целевое значение
 y = df['PRICE']
 
-# Выбор значимых переменных, alpha - риск принятия неправильного решения
+
+def regression_test(X: pd.DataFrame, y: pd.Series):
+    # Выбор значимых переменных, alpha - риск принятия неправильного решения
+    print(X.columns.values)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=9)
+
+    lin_reg = LinearRegression()
+    lin_reg.fit(X_train, y_train)
+    y_pred = lin_reg.predict(X_test)
+
+    rmse = (np.sqrt(mean_squared_error(y_test, y_pred)))
+    print(rmse)
+
+    r2 = r2_score(y_test, y_pred)
+    print(r2)
+
+
+print("\nForward Selection test\n")
+selection = ForwardSelection(LinearRegression())
+X_selected = selection.select(X, y, alpha=0.1)
+regression_test(X_selected, y)
+
+print("\nBackward Elimination test\n")
 selection = BackwardElimination(LinearRegression())
-X = selection.select(X, y, alpha=0.1)
-print(X.columns.values)
+X_selected = selection.select(X, y, alpha=0.1)
+regression_test(X, y)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=9)
 
-lin_reg = LinearRegression()
-lin_reg.fit(X_train, y_train)
-y_pred = lin_reg.predict(X_test)
 
-rmse = (np.sqrt(mean_squared_error(y_test, y_pred)))
-print(rmse)
-
-r2 = r2_score(y_test, y_pred)
-print(r2)
