@@ -33,7 +33,7 @@ class ForwardSelection:
                                      n: int,
                                      k: int):
         max_f_real = -math.inf
-        current_feature_name = None
+        max_f_real_feature_name = None
         for feature_name in X_remains:
             feature = X_remains[feature_name]
             # Расчет значения f_real на переменных X_new, включающих
@@ -44,8 +44,8 @@ class ForwardSelection:
             f_real = calculate_f_real(y, y_pred_initial, y_pred_full, n, k)
             if f_real > max_f_real:
                 max_f_real = f_real
-                current_feature_name = feature_name
-        return current_feature_name
+                max_f_real_feature_name = feature_name
+        return max_f_real_feature_name
 
     # Отбор значимых переменных из Х
     # X - независимые переменные

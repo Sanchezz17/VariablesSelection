@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from ForwardSelection import ForwardSelection
+from BackwardElimination import BackwardElimination
 
 # Загружаем экземпляр набора данных, вызвав функцию load_boston()
 
@@ -25,7 +26,7 @@ X = df.iloc[:, :13]
 y = df['PRICE']
 
 # Выбор значимых переменных, alpha - риск принятия неправильного решения
-selection = ForwardSelection(LinearRegression())
+selection = BackwardElimination(LinearRegression())
 X = selection.select(X, y, alpha=0.1)
 print(X.columns.values)
 
