@@ -7,7 +7,7 @@ class ForwardSelection:
     def __init__(self, regression):
         self.regression = regression
 
-    # X - выборка
+    # X - независимые переменные
     # y - истинное значение результирующей переменной
     def _predict(self, X: pd.DataFrame, y: pd.Series):
         # Для корректной работы с выборкой из одной переменной
@@ -18,7 +18,7 @@ class ForwardSelection:
         return y_pred
 
     # Выбор переменной, имеющей максимальное значение f_real
-    # X_remains - выборка, среди которой выбираем переменную
+    # X_remains - переменные, среди которых выбираем
     # X_current - уже выбранные переменные
     # y - истинное значение результирующей переменной
     # y_pred_initial - оценка, полученная на основе регрессионной модели
@@ -37,7 +37,7 @@ class ForwardSelection:
         for feature_name in X_remains:
             feature = X_remains[feature_name]
             # Расчет значения f_real на выборке X_new, включающей
-			# переменную feature
+            # переменную feature
             X_new = X_current.copy()
             X_new[feature_name] = feature
             y_pred_full = self._predict(X_new, y)
@@ -48,18 +48,18 @@ class ForwardSelection:
         return current_feature_name
 
     # Отбор значимых переменных из выборки Х
-    # X - выборка
+    # X - независимые переменные
     # y - истинное значение результирующей переменной
     # alpha - риск принятия неправильного решения
     def select(self, X: pd.DataFrame, y: pd.Series, alpha: float = 0.1):
         # результат - отобранные переменные
         X_result = pd.DataFrame()
 
-        # выборка, из которой будем проводить отбор переменных
+        # переменные, из которой будем проводить отбор
         X_remains = X.copy()
 
         # объем выборки
-        n = X.shape[1]
+        n = X.shape[0]
 
         # количество выбранных переменных
         k = 0
@@ -73,7 +73,7 @@ class ForwardSelection:
         for _ in range(n):
             if current_feature_name is None:
                 break
-            # добавляем новую переменную в текущую выборку
+            # добавляем новую переменную в текущую модель
             X_current[current_feature_name] = X_remains[current_feature_name]
 
             # расчет значения критерия f_real
