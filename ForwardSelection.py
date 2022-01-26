@@ -10,7 +10,7 @@ class ForwardSelection:
     # X - независимые переменные
     # y - истинное значение результирующей переменной
     def _predict(self, X: pd.DataFrame, y: pd.Series):
-        # Для корректной работы с выборкой из одной переменной
+        # Для корректной работы с Х, состоящим из одной переменной
         if X.shape[1] == 1:
             X = X.values.reshape(-1, 1)
         self.regression.fit(X, y)
@@ -23,7 +23,7 @@ class ForwardSelection:
     # y - истинное значение результирующей переменной
     # y_pred_initial - оценка, полученная на основе регрессионной модели
     #                  без новой переменной
-    # n - изначальный объем выборки
+    # n - объем выборки
     # k - количество уже выбранных переменных
     def find_feature_with_max_f_real(self,
                                      X_remains: pd.DataFrame,
@@ -36,7 +36,7 @@ class ForwardSelection:
         current_feature_name = None
         for feature_name in X_remains:
             feature = X_remains[feature_name]
-            # Расчет значения f_real на выборке X_new, включающей
+            # Расчет значения f_real на переменных X_new, включающих
             # переменную feature
             X_new = X_current.copy()
             X_new[feature_name] = feature
@@ -47,7 +47,7 @@ class ForwardSelection:
                 current_feature_name = feature_name
         return current_feature_name
 
-    # Отбор значимых переменных из выборки Х
+    # Отбор значимых переменных из Х
     # X - независимые переменные
     # y - истинное значение результирующей переменной
     # alpha - риск принятия неправильного решения
@@ -84,7 +84,7 @@ class ForwardSelection:
 
             if f_real > f_table:
                 # переменная current_feature - значимая
-                # включение переменной current_feature в результирующую выборку
+                # включение переменной current_feature в модель
                 X_result = X_current.copy()
                 y_pred_initial = y_pred_full
                 k += 1

@@ -13,7 +13,7 @@ def SSR(y_pred: np.array, y_mean: float):
 # Возвращает сумму квадратов ошибок, приходящаяся на одну степень свободы
 # y - истинное значение результирующей переменной
 # y_pred - оценка, полученная на основе регрессионной модели
-# n - изначальный объем выборки
+# n - объем выборки
 # k - количество уже выбранных переменных
 def MSE(y: np.array, y_pred: np.array, n: int, k: int):
     SSE = np.sum(np.square(y - y_pred))
@@ -26,7 +26,7 @@ def MSE(y: np.array, y_pred: np.array, n: int, k: int):
 #                  без новой переменной
 # y_pred_full - оценка, полученная на основе регрессионной модели
 #               с добавлением новой переменной
-# n - изначальный объем выборки
+# n - объем выборки
 # k - количество уже выбранных переменных
 def calculate_f_real(y: np.array,
                      y_pred_initial: np.array,
@@ -43,14 +43,14 @@ def calculate_f_real(y: np.array,
 
 # расчет граничной величины критерия f_table
 # alpha - риск принятия неправильного решения
-# n - изначальный объем выборки
+# n - объем выборки
 # k - количество уже выбранных переменных
 def calculate_f_table(alpha: float, n: int, k: int):
     return stats.f.ppf(1 - alpha, 1, n - k - 2)
 
 
 # Возвращает имя переменной, которая имеет наибольшую корреляцию с y
-# X - выборка
+# X - независимые переменные
 # y - истинное значение результирующей переменной
 def find_max_corr_feature(X: pd.DataFrame, y: pd.Series):
     corrs = X.apply(lambda feature: feature.corr(y))
